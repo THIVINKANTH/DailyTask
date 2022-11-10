@@ -48,7 +48,6 @@ public class Connection implements ZealousAcademyActions
 				connect.Searchstudentdetails(tech1);
 				break;
 			case 5:
-				
 				connect.Sortstudentdetails();
 				break;
 			case 6:
@@ -71,16 +70,31 @@ public class Connection implements ZealousAcademyActions
 	@Override
 	public String Addnewstudentdetails(ZealousAcademy zealous) 
 	{
-		for(int index=0;index<academy.length;index++)
+		try
 		{
-			if(academy[index]==null)
+			for(int index=0;index<academy.length;index++)
 			{
-				academy[index]=zealous;
-				return zealous.getStudentName()+"has name is add successfully";
+				if(academy[index]==null)
+				{
+					academy[index]=zealous;
+					return zealous.getStudentName()+"has name is add successfully";
+				}
 			}
+			throw new ZealousAcademyException();
+		}
+		catch(ZealousAcademyException exe)
+		{
+			System.out.println(exe+"memory is full, so if you need any one data is deleted");
+			for(ZealousAcademy zea:academy)
+			{
+				System.out.println(zea.getStudentName());
+			}
+			System.out.println("which name you want delete");
+			Deletestudentdetails(scan.next());
+			Addnewstudentdetails(zealous);
 		}
 		
-		return zealous.getStudentName()+"has name not added";
+		return zealous.getStudentName()+"has name is added successfully";
 	}
 
 	@Override
@@ -96,62 +110,77 @@ public class Connection implements ZealousAcademyActions
 	@Override
 	public void Updatestudentdetails(String name) 
 	{
-		for(int index=0;index<academy.length;index++)
-		{
-			if(academy[index].getStudentName().equalsIgnoreCase(name));
+			for(int index=0;index<academy.length;index++)
 			{
-				System.out.println(name+"which field you want to update");
-				System.out.println(academy[index]);
-				String field=scan.next();
-				switch(field)
+				if(academy[index].getStudentName().equalsIgnoreCase(name));
 				{
-				case "studentName":
-					System.out.println("Enter your new student name");
-					String newstud=scan.next();
-					academy[index].setStudentName(newstud);
-					break;
-				case "studentTechnology":
-					System.out.println("Enter your new Technology");
-					String tech=scan.next();
-					academy[index].setStudentTechnology(tech);
-					break;
-				case "studentIncharge":
-					System.out.println("Enter your new InchargeName");
-					String Incharge=scan.next();
-					academy[index].setStudentIncharge(Incharge);
-					break;
-				case "studentMemberscount":
-					System.out.println("Enter your new members count");
-					int count=scan.nextInt();
-					academy[index].setStudentMemberscount(count);
-					break;
-				case "studentClasstiming":
-					System.out.println("Enter your new class Timing");
-					double time=scan.nextDouble();
-					academy[index].setStudentClasstiming(time);
-					break;
-				case "studentCourseprice":
-					System.out.println("Enter your new course price");
-					double price=scan.nextDouble();
-					academy[index].setStudentCourseprice(price);
-					break;
+					System.out.println(name+"which field you want to update");
+					System.out.println(academy[index]);
+					String field=scan.next();
+					switch(field)
+					{
+					case "studentName":
+						System.out.println("Enter your new student name");
+						String newstud=scan.next();
+						academy[index].setStudentName(newstud);
+						break;
+					case "studentTechnology":
+						System.out.println("Enter your new Technology");
+						String tech=scan.next();
+						academy[index].setStudentTechnology(tech);
+						break;
+					case "studentIncharge":
+						System.out.println("Enter your new InchargeName");
+						String Incharge=scan.next();
+						academy[index].setStudentIncharge(Incharge);
+						break;
+					case "studentMemberscount":
+						System.out.println("Enter your new members count");
+						int count=scan.nextInt();
+						academy[index].setStudentMemberscount(count);
+						break;
+					case "studentClasstiming":
+						System.out.println("Enter your new class Timing");
+						double time=scan.nextDouble();
+						academy[index].setStudentClasstiming(time);
+						break;
+					case "studentCourseprice":
+						System.out.println("Enter your new course price");
+						double price=scan.nextDouble();
+						academy[index].setStudentCourseprice(price);
+						break;
+					}
+					System.out.println(field+"has been updated");
+					return;
 				}
-				return;
-				//System.out.println(field+"has been updated");
 			}
-		}
 	}
 
 	@Override
 	public void Searchstudentdetails(String technology) 
 	{
-		System.out.println("i have trying to search for technology"+technology);
-		for(int index=0;index<academy.length;index++)
+		try
 		{
-			if(academy[index].getStudentTechnology().equalsIgnoreCase(technology))
+			System.out.println("i have trying to search for technology"+"  "+technology);
+			for(int index=0;index<academy.length;index++)
 			{
-				System.out.println(academy[index]);
+				if(academy[index].getStudentTechnology().equalsIgnoreCase(technology))
+				{
+					System.out.println(academy[index]);
+					return;
+				}
 			}
+			throw  new ZealousAcademyException();
+		}
+		catch(ZealousAcademyException exe)
+		{
+			System.out.println(exe+"Technology is not matching,available Technologys are");
+			for(ZealousAcademy zea:academy)
+			{
+				System.out.println(zea.getStudentTechnology());
+			}
+			System.out.println("which Technology you want ");
+			Searchstudentdetails(scan.next());
 		}
 	}
 
@@ -219,16 +248,31 @@ public class Connection implements ZealousAcademyActions
 	@Override
 	public void Deletestudentdetails(String name) 
 	{
-		for(int index=0;index<academy.length;index++)
+		try
 		{
-			if(academy[index].getStudentName().equalsIgnoreCase(name))
+			for(int index=0;index<academy.length;index++)
 			{
-				academy[index]=null;
-				System.out.println(name+"has been deleted successfully");
-				return;
+				if(academy[index].getStudentName().equalsIgnoreCase(name))
+				{
+					academy[index]=null;
+					System.out.println(name+"has been deleted successfully");
+					return;
+				}
 			}
+			throw new ZealousAcademyException();
 		}
-		System.out.println(name+"has't deleted....");
+		catch(ZealousAcademyException exe)
+		{
+			System.out.println(exe+"name is not matching.place enter matching values are");
+			for(ZealousAcademy zea:academy)
+			{
+				System.out.println(zea.getStudentName());
+			}
+			System.out.println("whitch name you want delete");
+			Deletestudentdetails(scan.next());
+			
+		}
+		System.out.println(name+"has deleted");
 	}
 
 }
