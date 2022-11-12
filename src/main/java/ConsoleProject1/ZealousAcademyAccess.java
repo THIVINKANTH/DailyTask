@@ -1,14 +1,14 @@
 package ConsoleProject1;
 
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Connection implements ZealousAcademyActions
+public class ZealousAcademyAccess implements Runnable,ZealousAcademyActions
 {
 	ZealousAcademy academy[]=new ZealousAcademy[7];
 	Scanner scan=new Scanner(System.in);
-	public Connection()
+	static int attempts;
+	public ZealousAcademyAccess()
 	{
 		academy[0]=new ZealousAcademy("Thivinkanth","JavaFullStack","Manojkumar", 5, 1.30, 30000.00);
 		academy[1]=new ZealousAcademy("Pradeep","CoreJava","Manojkumar", 4, 2.0, 10000.0);
@@ -18,56 +18,6 @@ public class Connection implements ZealousAcademyActions
 		academy[5]=new ZealousAcademy("Manojkumar","PythonFullStack", "Raseetha", 4, 1.45, 30000.0);
 		academy[6]=new ZealousAcademy("vasan", "UI", "thivinkanth", 3, 1.45, 30000.50);
 	}
-
-	public static void main(String[] args) 
-	{
-		Connection connect=new Connection();
-		do
-		{
-			System.out.println("which process you want\n 1.Addnewstudentdetails\n 2.List\n 3.Update\n 4.Search\n 5.Sort\n 6.Delete\n 7.Exit");
-			int menu=connect.scan.nextInt();
-			switch(menu)
-			{
-			case 1:
-				System.out.println("Enter StudentName,Techmology,Incharge,MemberCount,ClassTimig,CoursePrice");
-				ZealousAcademy z1=new ZealousAcademy(connect.scan.next(), connect.scan.next(),connect.scan.next(),connect.scan.nextInt(), connect.scan.nextDouble(),connect.scan.nextDouble());
-				System.out.println(connect.Addnewstudentdetails(z1));
-				break;
-			case 2:
-				System.out.println("your vale is listed");
-				connect.Listallstudentdetails();
-				break;
-			case 3:
-				System.out.println("which student name you want update");
-				String stud=connect.scan.next();
-				connect.Updatestudentdetails(stud);
-				break;
-			case 4:
-				System.out.println("search based on technology");
-				System.out.println("which technology you want to search");
-				String tech1=connect.scan.next();
-				connect.Searchstudentdetails(tech1);
-				break;
-			case 5:
-				connect.Sortstudentdetails();
-				break;
-			case 6:
-				System.out.println("which name you want to delete in academic");
-				String nm=connect.scan.next();
-				connect.Deletestudentdetails(nm);
-			case 7:
-				if(menu==7)
-				{
-					System.out.println("Thank You");
-					return;
-				}
-			//default:return ;
-			}
-		}
-		while(true);
-
-	}
-
 	@Override
 	public String Addnewstudentdetails(ZealousAcademy zealous) 
 	{
@@ -96,10 +46,10 @@ public class Connection implements ZealousAcademyActions
 		}
 		
 		return zealous.getStudentName()+"has name is added successfully";
-	}
 
+	}
 	@Override
-	public void Listallstudentdetails() 
+	public void Listallstudentdetails()
 	{
 		for(ZealousAcademy zea:academy)
 		{
@@ -107,7 +57,6 @@ public class Connection implements ZealousAcademyActions
 		}
 		
 	}
-
 	@Override
 	public void Updatestudentdetails(String name) 
 	{
@@ -221,7 +170,6 @@ public class Connection implements ZealousAcademyActions
 		}
 		
 	}
-
 	@Override
 	public void Searchstudentdetails(String technology) 
 	{
@@ -249,9 +197,8 @@ public class Connection implements ZealousAcademyActions
 			Searchstudentdetails(scan.next());
 		}
 	}
-
 	@Override
-	public void Sortstudentdetails()
+	public void Sortstudentdetails() 
 	{
 		try
 		{
@@ -375,7 +322,17 @@ public class Connection implements ZealousAcademyActions
 					}
 				}
 			}
+			if(attempts<2)
+			{
+				attempts++;
+				Sortstudentdetails();
+			}
+			else
+			{
+				System.out.println("Maximum Attempts Reached");
+			}
 		}
+		
 	}
 	@Override
 	public void Deletestudentdetails(String name) 
@@ -402,9 +359,57 @@ public class Connection implements ZealousAcademyActions
 			}
 			System.out.println("whitch name you want delete");
 			Deletestudentdetails(scan.next());
-			
 		}
 		System.out.println(name+"has deleted");
+		
 	}
-
+	@Override
+	synchronized public void run() 
+	{
+		System.out.println("Welcome to ZealousAcademy"+" "+Thread.currentThread().getName());
+		do
+		{
+			System.out.println("which process you want\n 1.Addnewstudentdetails\n 2.List\n 3.Update\n 4.Search\n 5.Sort\n 6.Delete\n 7.Exit");
+			int menu=scan.nextInt();
+			switch(menu)
+			{
+			case 1:
+				System.out.println("Enter StudentName,Techmology,Incharge,MemberCount,ClassTimig,CoursePrice");
+				ZealousAcademy z1=new ZealousAcademy(scan.next(),scan.next(),scan.next(),scan.nextInt(),scan.nextDouble(),scan.nextDouble());
+				System.out.println(Addnewstudentdetails(z1));
+				break;
+			case 2:
+				System.out.println("your vale is listed");
+				Listallstudentdetails();
+				break;
+			case 3:
+				System.out.println("which student name you want update");
+				String stud=scan.next();
+				Updatestudentdetails(stud);
+				break;
+			case 4:
+				System.out.println("search based on technology");
+				System.out.println("which technology you want to search");
+				String tech1=scan.next();
+				Searchstudentdetails(tech1);
+				break;
+			case 5:
+				Sortstudentdetails();
+				break;
+			case 6:
+				System.out.println("which name you want to delete in academic");
+				String nm=scan.next();
+				Deletestudentdetails(nm);
+			case 7:
+				if(menu==7)
+				{
+					System.out.println("Thank You");
+					return;
+				}
+			//default:return ;
+			}
+		}
+		while(true);
+		
+	}
 }
