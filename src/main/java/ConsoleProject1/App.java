@@ -4,7 +4,7 @@ public class App {
 
 	public static void main(String[] args) 
 	{
-	   ZealousAcademyAccess access=new ZealousAcademyAccess();
+	   ZealousAcademyCollectoin access=new ZealousAcademyCollectoin();
 	   Thread th1=new Thread(access,"Thivinkanth");
 	   Thread th2=new Thread(access,"Pradeep");
 	   Thread th3=new Thread(access,"Thilak");

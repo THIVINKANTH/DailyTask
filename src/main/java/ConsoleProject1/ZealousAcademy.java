@@ -15,5 +15,9 @@ public class ZealousAcademy
 	private int studentMemberscount;
 	private double studentClasstiming;
 	private double studentCourseprice;
+	public int compareTo(ZealousAcademy o)
+	{
+		return this.studentName.compareTo(o.studentName);
+	}
 
 }
