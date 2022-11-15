@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data//getter setter and toString
 @NoArgsConstructor
 @AllArgsConstructor// ZealousAcademy obj=new ZealousAcademy(String studentName,......)
-public class ZealousAcademy 
+public class ZealousAcademy implements Comparable<ZealousAcademy>
 {
 	private String studentName;
 	private String studentTechnology;

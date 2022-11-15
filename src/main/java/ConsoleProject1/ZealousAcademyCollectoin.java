@@ -1,5 +1,6 @@
 package ConsoleProject1;
 
+import java.util.Collection;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,11 +11,11 @@ import java.util.Vector;
 
 public class ZealousAcademyCollectoin implements Runnable,ZealousAcademyActions 
 {
-	List<ZealousAcademy>academy=new LinkedList<ZealousAcademy>();
+	TreeSet<ZealousAcademy>academy=new TreeSet<ZealousAcademy>();
 	Scanner scan=new Scanner(System.in);
 	public ZealousAcademyCollectoin()
 	{
-		academy.add(new ZealousAcademy("Thivinkanth","JavaFullStacj","Manojkumar", 5, 2.30, 30000.50));
+		academy.add(new ZealousAcademy("Thivinkanth","JavaFullStack","Manojkumar", 5, 2.30, 30000.50));
 		academy.add(new ZealousAcademy("Pradeep","CoreJava","Manojkumar", 4, 2.0, 10000.0));
 		academy.add(new ZealousAcademy("Thilak","PHP","Aarthi", 7, 1.15, 15000.90));
 		academy.add(new ZealousAcademy("Vishnu","C#","Razak", 3, 1.00, 12000.0));
@@ -94,8 +95,8 @@ public class ZealousAcademyCollectoin implements Runnable,ZealousAcademyActions
 				default:
 					throw new ZealousAcademyException();
 			}
-			System.out.println(field+"has been updated");
-			academy.add(ac);
+			System.out.println(field+" "+"has been updated");
+			//academy.add(ac);
 			return;
 		}
 		catch(ZealousAcademyException |InputMismatchException exe)
@@ -140,8 +141,8 @@ public class ZealousAcademyCollectoin implements Runnable,ZealousAcademyActions
 				default:
 					System.out.println("Maximum choice is over");
 			}
-			System.out.println(field+"has been updated");
-			academy.add(ac);
+			System.out.println(field+" "+"has been updated");
+			//academy.add(ac);
 			return;
 		}
 	}
@@ -155,14 +156,37 @@ public class ZealousAcademyCollectoin implements Runnable,ZealousAcademyActions
 	@Override
 	public void Searchstudentdetails(String technology) 
 	{
-		
+		List<ZealousAcademy>temp= new Vector<ZealousAcademy>();
+		temp.addAll(academy);
+		try
+		{
+			System.out.println("i have trying to search for technology"+"  "+technology);
+			for(int index=0;index<temp.size();index++)
+			{
+				if(temp.get(index).getStudentTechnology().equalsIgnoreCase(technology))
+				{
+					System.out.println(temp.get(index));
+					return;
+				}
+			}
+			throw  new ZealousAcademyException();
+		}
+		catch(ZealousAcademyException exe)
+		{
+			System.out.println(exe+"Technology is not matching,available Technologys are");
+			for(ZealousAcademy zea:academy)
+			{
+				System.out.println(zea.getStudentTechnology());
+			}
+			System.out.println("which Technology you want ");
+			Searchstudentdetails(scan.next());
+		}
 		
 	}
 
 	@Override
 	public void Sortstudentdetails() 
 	{
-		
 		
 	}
 

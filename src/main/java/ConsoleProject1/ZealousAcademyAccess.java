@@ -10,14 +10,10 @@ import java.util.Vector;
 public class ZealousAcademyAccess implements Runnable,ZealousAcademyActions
 {
 	ZealousAcademy academy[]=new ZealousAcademy[7];
-	//TreeSet<ZealousAcademy>academy=new TreeSet<ZealousAcademy>();
 	Scanner scan=new Scanner(System.in);
 	static int attempts;
 	public ZealousAcademyAccess()
 	{
-//		academy.add(new ZealousAcademy("Thivinkanth","JavaFullStack","Manojkumar", 5, 1.30, 30000.00));
-//		academy.add(new ZealousAcademy("Pradeep","CoreJava","Manojkumar", 4, 2.0, 10000.0));
-//		academy.add(new ZealousAcademy("Thilak","PHP","Aarthi", 7, 1.15, 15000.90));
 		academy[0]=new ZealousAcademy("Thivinkanth","JavaFullStack","Manojkumar", 5, 1.30, 30000.00);
 		academy[1]=new ZealousAcademy("Pradeep","CoreJava","Manojkumar", 4, 2.0, 10000.0);
 		academy[2]=new ZealousAcademy("Thilak","PHP","Aarthi", 7, 1.15, 15000.90);
@@ -29,7 +25,6 @@ public class ZealousAcademyAccess implements Runnable,ZealousAcademyActions
 	@Override
 	public String Addnewstudentdetails(ZealousAcademy zealous) 
 	{
-		//academy.add(zealous);
 	try
 		{
 			for(int index=0;index<academy.length;index++)
@@ -61,7 +56,6 @@ public class ZealousAcademyAccess implements Runnable,ZealousAcademyActions
 	@Override
 	public void Listallstudentdetails()
 	{
-		//Iterator<ZealousAcademy>it=academy.iterator();
 		
 		for(ZealousAcademy zea:academy)
 		{
@@ -349,8 +343,6 @@ public class ZealousAcademyAccess implements Runnable,ZealousAcademyActions
 	@Override
 	public void Deletestudentdetails(String name) 
 	{
-//		List<ZealousAcademy>temp=new Vector<ZealousAcademy>();//upcasting
-//		temp.addAll(academy);
 		try
 		{
 			for(int index=0;index<academy.length;index++)
@@ -358,7 +350,6 @@ public class ZealousAcademyAccess implements Runnable,ZealousAcademyActions
 				if(academy[index].getStudentName().equalsIgnoreCase(name))
 				{
 					academy[index]=null;
-				    //academy.remove(temp.get(index));
 					System.out.println(name+"has been deleted successfully");
 					return;
 				}
