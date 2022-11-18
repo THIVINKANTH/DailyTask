@@ -1,11 +1,7 @@
 package ConsoleProject1;
 
 import java.util.InputMismatchException;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
-import java.util.TreeSet;
-import java.util.Vector;
 
 public class ZealousAcademyAccess implements Runnable,ZealousAcademyActions
 {
