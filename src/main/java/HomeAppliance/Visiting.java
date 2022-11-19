@@ -17,12 +17,12 @@ import java.util.Vector;
 
 public class Visiting implements Runnable,Appliance
 {
-	File file=new File("E:\\ConsoleApplication\\Appliance\\Entrydetails.doc");
+	File file=new File("E:\\ConsoleApplication\\Sharp\\Entrydetails.doc");
 	FileOutputStream fos=null;
 	ObjectOutputStream oos=null;
 	FileInputStream fis=null;
 	ObjectInputStream ois=null;
-	ArrayList<CustomerDetails>details=new ArrayList<CustomerDetails>();
+	ArrayList<CustomerDetails>details=null;//new ArrayList<CustomerDetails>();
 	public void Entrywrite() throws IOException
 	{
 		fos=new FileOutputStream(file);
@@ -39,20 +39,41 @@ public class Visiting implements Runnable,Appliance
 		ois.close();
 		fis.close();
 	}
-	Vector<SystemBilling>billing=new Vector<SystemBilling>();
-	Scanner scan=new Scanner(System.in);
-	public void Visiting()
+	File file1=new File("E:\\ConsoleApplication\\Sharp\\BillingDetails.doc");
+	FileOutputStream fos1=null;
+	ObjectOutputStream oos1=null;
+	FileInputStream fis1=null;
+	ObjectInputStream ois1=null;
+	public void Billwrite() throws IOException
 	{
-		try {
-			fos=new FileOutputStream(file);
-			oos=new ObjectOutputStream(fos);
-			oos.writeObject(details);
-			oos.close();
-			fos.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		fos1=new FileOutputStream(file1);
+		oos1=new ObjectOutputStream(fos1);
+		oos1.writeObject(billing);
+		oos1.close();
+		fos1.close();
+	}
+	public void Billread() throws IOException, ClassNotFoundException
+	{
+		fis1=new FileInputStream(file1);
+		ois1=new ObjectInputStream(fis1);
+		billing=(Vector<SystemBilling>)ois1.readObject();
+		ois1.close();
+		fis1.close();
+	}
+	Vector<SystemBilling>billing=null;//new Vector<SystemBilling>();
+	Scanner scan=new Scanner(System.in);
+	public Visiting()
+	{
+//		try {
+//			fos1=new FileOutputStream(file1);
+//			oos1=new ObjectOutputStream(fos1);
+//			oos1.writeObject(billing);
+//			oos1.close();
+//			fos1.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 	}
 
@@ -86,6 +107,7 @@ public class Visiting implements Runnable,Appliance
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 	}
 
 	@Override
@@ -115,7 +137,9 @@ public class Visiting implements Runnable,Appliance
 					buy();
 					break;
 					default:
-						System.out.println(type+"this model not Exist");
+						throw new SharptronicsException();
+						//System.out.println(type+"this model not Exist");
+						
 				}
 			}
 			else if(needs.equalsIgnoreCase("SAMSUNG"))
@@ -136,7 +160,9 @@ public class Visiting implements Runnable,Appliance
 					buy();
 					break;
 				default:
-					System.out.println(type+"this model not Exist");
+					throw new SharptronicsException();
+					//System.out.println(type+"this model not Exist");
+					
 				}
 			}
 			else if(needs.equalsIgnoreCase("WHIRLPOOL"))
@@ -158,7 +184,8 @@ public class Visiting implements Runnable,Appliance
 					buy();
 					break;
 				default:
-					System.out.println(type+"this model not Exist");
+					throw new SharptronicsException();
+					//System.out.println(type+"this model not Exist");
 				}
 				
 			}
@@ -185,19 +212,27 @@ public class Visiting implements Runnable,Appliance
 					buy();
 					break;
 				default:
-					System.out.println(type+"this model not Exist");
+					throw new SharptronicsException();
+					//System.out.println(type+"this model not Exist");
 				}
 				
 			}
-			 throw new SharptronicsException();
-           
 		}
 		catch(SharptronicsException exe)
 		{
-			System.out.println(exe+"place Enter correct Fields");
-		    Fridge(needs);
+			System.out.println(exe+"Oops sorry this model not Exist");
+			System.out.println("Are Intrest to Buy singelDoor or DoubleDoor say yes or No");
+			String ans=scan.next();
+			if(ans.equalsIgnoreCase("Yes"))
+			{
+				Fridge(needs);
+			}
+			else if(ans.equalsIgnoreCase("no"))
+			{
+				System.out.println("Thank you");
+			}
+		    
 		}
-		return ;
 	}
 
 	@Override
@@ -227,7 +262,7 @@ public class Visiting implements Runnable,Appliance
 					buy();
 					break;
 				default:
-					System.out.println(type+"this model not Exist");
+					throw new SharptronicsException();
 				}
 			}
 			else if(needs.equalsIgnoreCase("SAMSUNG"))
@@ -248,7 +283,7 @@ public class Visiting implements Runnable,Appliance
 					buy();
 					break;
 				default:
-					System.out.println(type+"this model not Exist");
+					throw new SharptronicsException();
 				}
 			}
 			else if(needs.equalsIgnoreCase("IFB"))
@@ -269,94 +304,119 @@ public class Visiting implements Runnable,Appliance
 					buy();
 					break;
 				default:
-					System.out.println(type+"this model not Exist");
+					throw new SharptronicsException();
 				}
 			}
-			throw new SharptronicsException();
 		}
 		catch(SharptronicsException exe)
 		{
-			System.out.println(exe+"place Enter correct Fields");
-			WashingMachine(needs);
+			System.out.println(exe+"Oops sorry this model not Exist");
+			System.out.println("Are Intrest to Buy FrontLoad or TopLoad say yes or No");
+			String ans=scan.next();
+			if(ans.equalsIgnoreCase("Yes"))
+			{
+				WashingMachine(needs);
+			}
+			else if(ans.equalsIgnoreCase("no"))
+			{
+				System.out.println("Thank you");
+			}
 		}
 	}
 
 	@Override
 	public void Television(String needs) 
 	{
-		System.out.println(needs+"welcome to Sharptronics which size you want\n 32\n 43\n 55");
-		if(needs.equalsIgnoreCase("LG"))
+		try
 		{
-			int size=scan.nextInt();
-			switch(size)
+			System.out.println(needs+"welcome to Sharptronics which size you want\n 32\n 43\n 55");
+			if(needs.equalsIgnoreCase("LG"))
 			{
-			case 32:
-				System.out.println("Model:32LQ576BPSA\n Feature:Supported Apps: Netflix|Prime Video|Disney+Hotstar|Youtube\r\n"
-						+ "Operating System: WebOS\r\n"
-						+ "Resolution: HD Ready 1366 x 768 Pixels\r\n"
-						+ "Sound Output: 10 W\r\n"
-						+ "Refresh Rate: 60 Hz\n price:23990\n Discount:33%\n OfferPrice:15990");
-				buy();
-				break;
-			case 43:
-				System.out.println("Model:43UQ7500PSF\n Feature:Supported Apps: Netflix|Prime Video|Disney+Hotstar|Youtube\r\n"
-						+ "Operating System: WebOS\r\n"
-						+ "Resolution: Ultra HD (4K) 3840 x 2160 Pixels\r\n"
-						+ "Sound Output: 20 W\r\n"
-						+ "Refresh Rate: 60 Hz\r\n"
-						+ "\n Price:49990\n Discount:38%\n OfferPrice:30990");
-				buy();
-				break;
-			case 55:
-				System.out.println("Model:55UQ8020PSB\n Feature:Supported Apps: Netflix|Prime Video|Disney+Hotstar|Youtube\r\n"
-						+ "Operating System: WebOS\r\n"
-						+ "Resolution: Ultra HD (4K) 3840 x 2160 Pixels\r\n"
-						+ "Sound Output: 20 W\r\n"
-						+ "Refresh Rate: 60 Hz\n Price:84990\n Discount:39%\n OfferPrice:51490");
-				buy();
-				break;
-				default:
-					System.out.println("No Stack");
+				int size=scan.nextInt();
+				switch(size)
+				{
+				case 32:
+					System.out.println("Model:32LQ576BPSA\n Feature:Supported Apps: Netflix|Prime Video|Disney+Hotstar|Youtube\r\n"
+							+ "Operating System: WebOS\r\n"
+							+ "Resolution: HD Ready 1366 x 768 Pixels\r\n"
+							+ "Sound Output: 10 W\r\n"
+							+ "Refresh Rate: 60 Hz\n price:23990\n Discount:33%\n OfferPrice:15990");
+					buy();
+					break;
+				case 43:
+					System.out.println("Model:43UQ7500PSF\n Feature:Supported Apps: Netflix|Prime Video|Disney+Hotstar|Youtube\r\n"
+							+ "Operating System: WebOS\r\n"
+							+ "Resolution: Ultra HD (4K) 3840 x 2160 Pixels\r\n"
+							+ "Sound Output: 20 W\r\n"
+							+ "Refresh Rate: 60 Hz\r\n"
+							+ "\n Price:49990\n Discount:38%\n OfferPrice:30990");
+					buy();
+					break;
+				case 55:
+					System.out.println("Model:55UQ8020PSB\n Feature:Supported Apps: Netflix|Prime Video|Disney+Hotstar|Youtube\r\n"
+							+ "Operating System: WebOS\r\n"
+							+ "Resolution: Ultra HD (4K) 3840 x 2160 Pixels\r\n"
+							+ "Sound Output: 20 W\r\n"
+							+ "Refresh Rate: 60 Hz\n Price:84990\n Discount:39%\n OfferPrice:51490");
+					buy();
+					break;
+					default:
+						throw new SharptronicsException();
+				}
+				
 			}
-			
-		}
-		else if(needs.equalsIgnoreCase("SAMSUNG"))
-		{
-			int size=scan.nextInt();
-			switch(size)
+			else if(needs.equalsIgnoreCase("SAMSUNG"))
 			{
-			case 32:
-				System.out.println("Model:UA32T4380AKXXL\n feature:Operating System: Tizen\r\n"
-						+ "Resolution: HD Ready 1366 x 768 Pixels\r\n"
-						+ "Sound Output: 20 W\r\n"
-						+ "Refresh Rate: 50 Hz\n Price:19900\n Discount:28%\n OfferPrice:13490");
-				buy();
-				break;
-				default:
-					System.out.println("No Stock");
+				int size=scan.nextInt();
+				switch(size)
+				{
+				case 32:
+					System.out.println("Model:UA32T4380AKXXL\n feature:Operating System: Tizen\r\n"
+							+ "Resolution: HD Ready 1366 x 768 Pixels\r\n"
+							+ "Sound Output: 20 W\r\n"
+							+ "Refresh Rate: 50 Hz\n Price:19900\n Discount:28%\n OfferPrice:13490");
+					buy();
+					break;
+					default:
+						throw new SharptronicsException();
+				}
+			}
+			else if(needs.equalsIgnoreCase("SONY"))
+			{
+				int size=scan.nextInt();
+				switch(size)
+				{
+				case 32:
+					System.out.println("Model:KD-32W820K\n Feature:Operating System: Google TV\r\n"
+							+ "Resolution: HD Ready 1366 x 768 Pixels\r\n"
+							+ "Sound Output: 20 W\r\n"
+							+ "Refresh Rate: 60 Hz\n Price:34990\n Discount:28%\n OfferPrice:24999");
+					buy();
+					break;
+				case 55:
+					System.out.println("Model:KD-55X8000H\n Feature:Operating System: Android (Google Assistant & Chromecast in-built)\r\n"
+							+ "Resolution: Ultra HD (4K) 3840 x 2160 Pixels\r\n"
+							+ "Sound Output: 20 W\r\n"
+							+ "Refresh Rate: 50 Hz\n Price:106990\n Discount:28%\n OfferPrice:75999");
+					buy();
+					break;
+					default:
+						throw new SharptronicsException();
+				}
 			}
 		}
-		else if(needs.equalsIgnoreCase("SONY"))
+		catch(SharptronicsException exe)
 		{
-			int size=scan.nextInt();
-			switch(size)
+			System.out.println(exe+"Oops sorry this model no Stock");
+			System.out.println("Are Intrest to Buy 32inch 43ich 55inch say yes or No");
+			String ans=scan.next();
+			if(ans.equalsIgnoreCase("Yes"))
 			{
-			case 32:
-				System.out.println("Model:KD - 32W820K\n Feature:Operating System: Google TV\r\n"
-						+ "Resolution: HD Ready 1366 x 768 Pixels\r\n"
-						+ "Sound Output: 20 W\r\n"
-						+ "Refresh Rate: 60 Hz\n Price:34990\n Discount:28%\n OfferPrice:24999");
-				buy();
-				break;
-			case 55:
-				System.out.println("Model:KD-55X8000H\n Feature:Operating System: Android (Google Assistant & Chromecast in-built)\r\n"
-						+ "Resolution: Ultra HD (4K) 3840 x 2160 Pixels\r\n"
-						+ "Sound Output: 20 W\r\n"
-						+ "Refresh Rate: 50 Hz\n Price:106990\n Discount:28%\n OfferPrice:75999");
-				buy();
-				break;
-				default:
-					System.out.println("No Stock");
+				WashingMachine(needs);
+			}
+			else if(ans.equalsIgnoreCase("no"))
+			{
+				System.out.println("Thank you");
 			}
 		}
 
@@ -366,196 +426,280 @@ public class Visiting implements Runnable,Appliance
 	@Override
 	public void Billing(SystemBilling bill) 
 	{
-		billing.add(bill);
-		System.out.println(bill.getCustomerName()+" "+"has Billed");
-		System.out.println("Thank you for Purchase");
+		try {
+			Billread();
+			billing.add(bill);
+			System.out.println(bill.getCustomerName()+" "+"has Billed");
+			System.out.println("Thank you for Purchasing");
+			Billwrite();
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return;
 	}
 
 	@Override
 	public void BillingCustomerList() 
 	{
-		Iterator<SystemBilling>obj=billing.iterator();
-		while(obj.hasNext())
-		{
-			System.out.println(obj.next());
+		try {
+			Billread();
+			Iterator<SystemBilling>obj=billing.iterator();
+			while(obj.hasNext())
+			{
+				System.out.println(obj.next());
+			}
+			Billwrite();
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
+				
 	}
 
 	@Override
 	public void DeleteCustomer(String name) 
 	{
+		System.out.println("which field Data you want to delete\n CustomerDetails\n SystemBilling");
+		String delete=scan.next();
 		try {
 			Entryread();
-			List<CustomerDetails>list=new LinkedList<CustomerDetails>();
-			list.addAll(details);
-			try
+			if(delete.equalsIgnoreCase("CustomerDetails"))
 			{
-				for(int index=0;index<list.size();index++)
-				{
-					if(list.get(index).getCustomerName().equalsIgnoreCase(name))
+				try {
+					Entryread();
+					List<CustomerDetails>list=new LinkedList<CustomerDetails>();
+					list.addAll(details);
+					try
 					{
-					details.remove(list.get(index));
-					System.out.println(name+"has been Deleted successfully");
-					return;
+						for(int index=0;index<list.size();index++)
+						{
+							if(list.get(index).getCustomerName().equalsIgnoreCase(name))
+							{
+							details.remove(list.get(index));
+							System.out.println(name+"has been Deleted successfully");
+							Entrywrite();
+							return;
+							}
+						}
+						throw new SharptronicsException();
 					}
+					catch(SharptronicsException exe)
+					{
+						System.out.println(exe+name+"has not matching place enter register name");
+						for(CustomerDetails cus:details)
+						{
+							System.out.println(cus.getCustomerName());
+						}
+						System.out.println("which name you want to delete");
+						DeleteCustomer(scan.next());
+					}
+					System.out.println(name+"has deleted");
+
+				} catch (ClassNotFoundException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				throw new SharptronicsException();
+
 			}
-			catch(SharptronicsException exe)
-			{
-				System.out.println(exe+name+"has not matching place enter register name");
-				for(CustomerDetails cus:details)
+
+		} catch (ClassNotFoundException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			Billread();
+			 if(delete.equalsIgnoreCase("SystemBilling"))
 				{
-					System.out.println(cus.getCustomerName());
+					List<SystemBilling>list=new Vector<SystemBilling>();
+					list.addAll(billing);
+					try
+					{
+						for(int index=0;index<list.size();index++)
+						{
+							if(list.get(index).getCustomerName().equalsIgnoreCase(name))
+							{
+							billing.remove(list.get(index));
+							System.out.println(name+"has been Deleted successfully");
+							Billwrite();
+							return;
+							}
+						}
+						throw new SharptronicsException();
+					}
+					catch(SharptronicsException exe)
+					{
+						System.out.println(exe+name+"has not matching place enter register name");
+						for(SystemBilling sys:billing)
+						{
+							System.out.println(sys.getCustomerName());
+						}
+						System.out.println("which name you want to delete");
+						DeleteCustomer(scan.next());
+					}
+					System.out.println(name+"has deleted");
+
 				}
-				System.out.println("which name you want to delete");
-				DeleteCustomer(scan.next());
-			}
-			System.out.println(name+"has deleted");
 
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			}
+	  	}
 
 	@Override
 	public void UpdateBillingDetails(String name) 
 	{
-		SystemBilling bill=null;
-		for(SystemBilling sys:billing)
-		{
-			if(sys.getCustomerName().equalsIgnoreCase(name))
+		try {
+			Billread();
+			SystemBilling bill=null;
+			for(SystemBilling sys:billing)
 			{
-				bill=sys;
-				break;
-			}
-		}
-		if(bill!=null)
-		{
-			try
-			{
-				System.out.println(name+"which Field you want to Update");
-				String field=scan.next();
-				switch(field)
+				if(sys.getCustomerName().equalsIgnoreCase(name))
 				{
-				case "CustomerName":
-					System.out.println("Enter new Name");
-					String name1=scan.next();
-					bill.setCustomerName(name1);
+					bill=sys;
 					break;
-				case "MobileNumber":
-					System.out.println("Enter your new MobileNumber");
-					long m1=scan.nextLong();
-					bill.setMobileNumber(m1);
-					break;
-				case "CustomerAdvisor":
-					System.out.println("Enter your New AdvisorName");
-					String ad=scan.next();
-					bill.setCustomerAdvisor(ad);
-					break;
-				case "Brand":
-					System.out.println("Enter your new Selectoin Brand");
-					String br=scan.next();
-					bill.setBrand(br);
-					break;
-				case "Model":
-					System.out.println("Enter your new selectoin Model");
-					String mo=scan.next();
-					bill.setBrand(mo);
-					break;
-				case "Quantity":
-					System.out.println("Enter your new Quantity");
-					int qu=scan.nextInt();
-					bill.setQuantity(qu);
-					break;
-				case "Price":
-					System.out.println("Enter your new Price");
-					double pr=scan.nextDouble();
-					bill.setPrice(pr);
-					break;
-					default:
-						throw new SharptronicsException();
 				}
-				System.out.println(field+"has been Updated");
-				return;
 			}
-			catch(SharptronicsException | InputMismatchException exe)
+			if(bill!=null)
 			{
-				Scanner scan=new Scanner(System.in);
-				System.out.println(name+"your Field is wrong Enter Corrext value\n CustomerName\n MobileNumber\n CustomerAdvisor\n Brand\n Model\n Quantity\n Price");
-				System.out.println(name+"which Field you want to update");
-				String field=scan.next();
-				switch(field)
+				try
 				{
-				case "CustomerName":
-					System.out.println("Enter new Name");
-					String name1=scan.next();
-					bill.setCustomerName(name1);
-					break;
-				case "MobileNumber":
-					System.out.println("Enter your new MobileNumber");
-					long m1=scan.nextLong();
-					bill.setMobileNumber(m1);
-					break;
-				case "CustomerAdvisor":
-					System.out.println("Enter your New AdvisorName");
-					String ad=scan.next();
-					bill.setCustomerAdvisor(ad);
-					break;
-				case "Brand":
-					System.out.println("Enter your new Selectoin Brand");
-					String br=scan.next();
-					bill.setBrand(br);
-					break;
-				case "Model":
-					System.out.println("Enter your new selectoin Model");
-					String mo=scan.next();
-					bill.setBrand(mo);
-					break;
-				case "Quantity":
-					System.out.println("Enter your new Quantity");
-					int qu=scan.nextInt();
-					bill.setQuantity(qu);
-					break;
-				case "Price":
-					System.out.println("Enter your new Price");
-					double pr=scan.nextDouble();
-					bill.setPrice(pr);
-					break;
-					default:
-						System.out.println("Maximum choice is over");
+					System.out.println(name+"which Field you want to Update");
+					String field=scan.next();
+					switch(field)
+					{
+					case "CustomerName":
+						System.out.println("Enter new Name");
+						String name1=scan.next();
+						bill.setCustomerName(name1);
+						break;
+					case "MobileNumber":
+						System.out.println("Enter your new MobileNumber");
+						long m1=scan.nextLong();
+						bill.setMobileNumber(m1);
+						break;
+					case "CustomerAdvisor":
+						System.out.println("Enter your New AdvisorName");
+						String ad=scan.next();
+						bill.setCustomerAdvisor(ad);
+						break;
+					case "Brand":
+						System.out.println("Enter your new Selectoin Brand");
+						String br=scan.next();
+						bill.setBrand(br);
+						break;
+					case "Model":
+						System.out.println("Enter your new selectoin Model");
+						String mo=scan.next();
+						bill.setBrand(mo);
+						break;
+					case "Quantity":
+						System.out.println("Enter your new Quantity");
+						int qu=scan.nextInt();
+						bill.setQuantity(qu);
+						break;
+					case "Price":
+						System.out.println("Enter your new Price");
+						double pr=scan.nextDouble();
+						bill.setPrice(pr);
+						break;
+						default:
+							throw new SharptronicsException();
+					}
+					System.out.println(field+"has been Updated");
+					Billwrite();
+					return;
 				}
-				System.out.println(field+"has been Updated");
-				return;
+				catch(SharptronicsException | InputMismatchException exe)
+				{
+					Scanner scan=new Scanner(System.in);
+					System.out.println(name+"your Field is wrong Enter Correct value\n CustomerName\n MobileNumber\n CustomerAdvisor\n Brand\n Model\n Quantity\n Price");
+					System.out.println(name+"which Field you want to update");
+					String field=scan.next();
+					switch(field)
+					{
+					case "CustomerName":
+						System.out.println("Enter new Name");
+						String name1=scan.next();
+						bill.setCustomerName(name1);
+						break;
+					case "MobileNumber":
+						System.out.println("Enter your new MobileNumber");
+						long m1=scan.nextLong();
+						bill.setMobileNumber(m1);
+						break;
+					case "CustomerAdvisor":
+						System.out.println("Enter your New AdvisorName");
+						String ad=scan.next();
+						bill.setCustomerAdvisor(ad);
+						break;
+					case "Brand":
+						System.out.println("Enter your new Selectoin Brand");
+						String br=scan.next();
+						bill.setBrand(br);
+						break;
+					case "Model":
+						System.out.println("Enter your new selectoin Model");
+						String mo=scan.next();
+						bill.setBrand(mo);
+						break;
+					case "Quantity":
+						System.out.println("Enter your new Quantity");
+						int qu=scan.nextInt();
+						bill.setQuantity(qu);
+						break;
+					case "Price":
+						System.out.println("Enter your new Price");
+						double pr=scan.nextDouble();
+						bill.setPrice(pr);
+						break;
+						default:
+							System.out.println("Maximum choice is over");
+					}
+					System.out.println(field+"has been Updated");
+					Billwrite();
+					return;
+				}
 			}
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
 	public void buy()
 	{
-		System.out.println("If you want to buy say Yes or No");
-		String buying=scan.next();
-		try
-		{
-		if(buying.equalsIgnoreCase("Yes"))
-		{
-				System.out.println("Enter CustomerName\n MOblieNumber\n CustomerAdvisor\n Brand\n Model\n Quantity\n Price");
-				SystemBilling bill=new SystemBilling(scan.next(), scan.nextLong(), scan.next(), scan.next(), scan.next(), scan.nextInt(), scan.nextDouble());
-				Billing(bill);
-			}
-			else if(buying.equalsIgnoreCase("No"))
+		try {
+			Billread();
+			System.out.println("If you want to buy say Yes or No");
+			String buying=scan.next();
+			try
 			{
-				System.out.println("Thank you");
-				return;
+			if(buying.equalsIgnoreCase("Yes"))
+			{
+					System.out.println("Enter CustomerName\n MOblieNumber\n CustomerAdvisor\n Brand\n Model\n Quantity\n Price");
+					SystemBilling bill=new SystemBilling(scan.next(), scan.nextLong(), scan.next(), scan.next(), scan.next(), scan.nextInt(), scan.nextDouble());	
+				    Billing(bill);
+				    Billwrite();
+				    return;
+				}
+				else if(buying.equalsIgnoreCase("No"))
+				{
+					System.out.println("Thank you");
+					return;
+				}
+			throw new SharptronicsException();
 			}
-		throw new SharptronicsException();
-		}
-		catch(SharptronicsException exe)
-		{
-			System.out.println(exe+"Enter correct Datas");
-			buy();
+			catch(SharptronicsException exe)
+			{
+				System.out.println(exe+"Enter correct Datas");
+				buy();
+			}
+
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -563,59 +707,60 @@ public class Visiting implements Runnable,Appliance
 	synchronized public void run() 
 	{
 		System.out.println("Welcome to Sharpronics"+" "+Thread.currentThread().getName());
-		System.out.println("place Enter Customer Details");
-		System.out.println("Enter CustomerName,CustomerMOblieNumber,CustomerAdvisor,CustomerNeeds,CustomerExpectPrice");
-		CustomerDetails cus=new CustomerDetails(scan.next(), scan.nextLong(), scan.next(), scan.next(),scan.nextDouble());
-		System.out.println(CustomerEntry(cus));
-
 		do
 		{
-			System.out.println("which process you want\n 1.Fridge\n 2.WashingMachine\n 3.Television\n 4.EntryCustomerList\n 5.Billing\n 6.BillingCustomerList\n 7.DeleteCustomer\n 8.UpdateBillingDetails\n 9.Sorting\n 10.Exit");
+			System.out.println("which process you want\n 1.CustmoerEntry\n 2.Fridge\n 3.WashingMachine\n 4.Television\n 5.EntryCustomerList\n 6.Billing\n 7.BillingCustomerList\n 8.DeleteCustomer\n 9.UpdateBillingDetails\n 10.Sorting\n 11.Exit");
 			int menu=scan.nextInt();
 			switch(menu)
 			{
 			case 1:
+				System.out.println("place Enter Customer Details");
+				System.out.println("Enter CustomerName,CustomerMOblieNumber,CustomerAdvisor,CustomerNeeds,CustomerExpectPrice");
+				CustomerDetails cus=new CustomerDetails(scan.next(), scan.nextLong(), scan.next(), scan.next(),scan.nextDouble());
+				System.out.println(CustomerEntry(cus));
+				break;
+			case 2:
 				System.out.println("which company you want\n LG\n SAMSUNG\n WHIRLPOOL\n GODREj ");
 				String company=scan.next();
 				Fridge(company);		
 				break;
-			case 2:
+			case 3:
 				System.out.println("which company you want\n LG\n SAMSUNG\n IFB ");
 				String company1=scan.next();
 				WashingMachine(company1);
 				break;
-			case 3:
+			case 4:
 				System.out.println("which company you want\n LG\n SAMSUNG\n SONY ");
 				String company2=scan.next();
 				Television(company2);
 				break;
-			case 4:
+			case 5:
 				System.out.println("Entry customer Listed");
 				EntryCustomerList();
 				break;
-			case 5:
-				System.out.println("Enter CustomerName\n MOblieNumber\n CustomerAdvisor\n Brand\n Model\n Quantity\n Price");
+			case 6:
+				System.out.println("Enter CustomerName\n MOblieNumber\n CustomerAdvisor\n Brand-LG,SAMSUNG,SONY,WHIRLPOOL,GODREJ,IFB\n Model-LG\rSingleDoor-\n Quantity\n Price");
 				SystemBilling bill=new SystemBilling(scan.next(), scan.nextLong(), scan.next(), scan.next(), scan.next(), scan.nextInt(), scan.nextDouble());
 				Billing(bill);
 			   break;
-			case 6:
+			case 7:
 				System.out.println("Billing Customer Listed");
 				BillingCustomerList();
 				break;
-			case 7:
+			case 8:
 				System.out.println("which Customer you want delete enter register name");
 				String name=scan.next();
 				DeleteCustomer(name);
 				break;
-			case 8:
+			case 9:
 				System.out.println("which customer Bill you want to Update");
 				String update=scan.next();
 				UpdateBillingDetails(update);
 				break;
-			case 9:
+			case 10:
 				Sorting();
 				break;
-			case 10:
+			case 11:
 				if(menu==10)
 				{
 					System.out.println("Thank you");
@@ -646,9 +791,16 @@ public class Visiting implements Runnable,Appliance
 			}
 			
 		case"SystemBilling":
-			Collections.sort(billing);
+			try {
+				Billread();
+				Collections.sort(billing);
+				Billwrite();
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
-		
 		
 	}
 }
