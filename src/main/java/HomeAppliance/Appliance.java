@@ -12,5 +12,6 @@ public interface Appliance
 	public void DeleteCustomer(String name);
 	public void UpdateBillingDetails(String name);
 	public void Sorting();
+	public void Searching(String name);
 
 }

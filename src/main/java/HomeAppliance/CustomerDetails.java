@@ -1,6 +1,7 @@
 package HomeAppliance;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,8 +20,7 @@ public class CustomerDetails implements Comparable<CustomerDetails>,Serializable
 	@Override
 	public int compareTo(CustomerDetails o) 
 	{
-		
 		return this.CustomerName.compareTo(o.CustomerName);
 	}
-
+	
 }

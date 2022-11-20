@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -90,7 +91,7 @@ public class Visiting implements Runnable,Appliance
 				e.printStackTrace();
 			
 		} 	
-		return customer.getCustomerName()+"has Added Successfully";
+		return customer.getCustomerName()+" "+"has Added Successfully";
 	}
 
 	@Override
@@ -122,6 +123,17 @@ public class Visiting implements Runnable,Appliance
 				switch(type)
 				{
 				case "SingleDoor":
+//					String Model="GL-D221ABED";
+//					String Features="Moist N Fresh\\r\\n\"\r\n"
+//							+ "//							+ \"Toughened Glass with Frame\\r\\n\"\r\n"
+//							+ "//							+ \"Works Without Stabilizer\\r\\n\"\r\n"
+//							+ "//							+ \"Fast Ice Making";
+//					String Litter="215L";
+//					int price=26099;
+//					String Discount="31%";
+//					double OfferPrice=17990;
+//					System.out.println(Model+"\n"+Features+"\n"+Litter+"\n"+price+"\n"+Discount+"\n"+OfferPrice);
+					
 					System.out.println("Model:GL-D221ABED\n Features:Moist N Fresh\r\n"
 							+ "Toughened Glass with Frame\r\n"
 							+ "Works Without Stabilizer\r\n"
@@ -171,11 +183,11 @@ public class Visiting implements Runnable,Appliance
 				switch(type)
 				{
 				case"SingleDoor":
-					System.out.println("Model:IMPRO PRM 5S INV SAPPHIRE MULIA\n Feature:Laminar Airflow for uniform cooling, Intellisense Inverter Technology, Removable Anti Bacterial Gasket, Insulated Capillary Technology, Stabilizer free operation\n Litters:205L\n Price:24750\n Discount:30%\n OfferPrice:17290");
+					System.out.println("Model:IMPRO_PRM_5S_INV_SAPPHIRE_MULIA\n Feature:Laminar Airflow for uniform cooling, Intellisense Inverter Technology, Removable Anti Bacterial Gasket, Insulated Capillary Technology, Stabilizer free operation\n Litters:205L\n Price:24750\n Discount:30%\n OfferPrice:17290");
 					buy();
 					break;
 				case"DoubleDoor":
-					System.out.println("Model:NEO DF 258 ROY Arctic Steel\n Feature:Explore cooling that stays locked-in with the 6TH SENSE DeepFreeze Technology\r\n"
+					System.out.println("Model:NEO_DF_258_ROY_Arctic_Steel\n Feature:Explore cooling that stays locked-in with the 6TH SENSE DeepFreeze Technology\r\n"
 							+ "Up to 12 Days of Garden Freshness, Uniform Cooling with Freshflow Airtower\r\n"
 							+ "Prevention of Up to 99 percent Bacteria With Microblock Technology\r\n"
 							+ "Effective Anti-Odor Action with Active Deo, Optimum Moisture Retention with Honeycomb Crisper Cover Design\r\n"
@@ -195,7 +207,7 @@ public class Visiting implements Runnable,Appliance
 				switch(type)
 				{
 				case"SingleDoor":
-					System.out.println("Model:EDGEPRO 225D 43 TDI\n Feature:Type. Direct Cool Refrigerators.\r\n"
+					System.out.println("Model:EDGEPRO_225D_43_TDI\n Feature:Type. Direct Cool Refrigerators.\r\n"
 							+ "Capacity. 210 L.\r\n"
 							+ "Star Rating. ...\r\n"
 							+ "Height x Width x Depth (mm) 1342 X 577 X 667.\r\n"
@@ -204,7 +216,7 @@ public class Visiting implements Runnable,Appliance
 					buy();
 					break;
 				case"DoubleDoor":
-					System.out.println("Model: RT EONVIBE 366B 25 HCIT ST RH\n Feature:350 L : Good for families of 3-5 members\r\n"
+					System.out.println("Model:RT_EONVIBE_366B_25_HCIT_ST_RH\n Feature:350 L : Good for families of 3-5 members\r\n"
 							+ "Inverter\r\n"
 							+ "2 Star : For Energy savings up to 20%\r\n"
 							+ "Frost Free : Auto fridge defrost to stop ice-build up\r\n"
@@ -220,7 +232,7 @@ public class Visiting implements Runnable,Appliance
 		}
 		catch(SharptronicsException exe)
 		{
-			System.out.println(exe+"Oops sorry this model not Exist");
+			System.out.println(exe+" "+"Oops sorry this model not Exist");
 			System.out.println("Are Intrest to Buy singelDoor or DoubleDoor say yes or No");
 			String ans=scan.next();
 			if(ans.equalsIgnoreCase("Yes"))
@@ -292,13 +304,13 @@ public class Visiting implements Runnable,Appliance
 				switch(type)
 				{
 				case"FrontLoad":
-					System.out.println("Model:SENATOR PLUS SXS 8014\n Feature:1400 RPM : Higher the spin speed, lower the drying time\r\n"
+					System.out.println("Model:SENATOR_PLUS_SXS_8014\n Feature:1400 RPM : Higher the spin speed, lower the drying time\r\n"
 							+ "5 Star Rating\r\n"
 							+ "8 kg\n Price:43190\n Discount:12%\n Offerprice:37990");
 					buy();
 					break;
 				case"TopLoad":
-					System.out.println("Model:TL-REW Aqua\n Feature:720 rpm : Higher the spin speed, lower the drying time\r\n"
+					System.out.println("Model:TL-REW_Aqua\n Feature:720 rpm : Higher the spin speed, lower the drying time\r\n"
 							+ "5 Star Rating\r\n"
 							+ "6.5 kg\n Price:19290\n Discount:10%\n OfferPrice:17290");
 					buy();
@@ -310,7 +322,7 @@ public class Visiting implements Runnable,Appliance
 		}
 		catch(SharptronicsException exe)
 		{
-			System.out.println(exe+"Oops sorry this model not Exist");
+			System.out.println(exe+" "+"Oops sorry this model not Exist");
 			System.out.println("Are Intrest to Buy FrontLoad or TopLoad say yes or No");
 			String ans=scan.next();
 			if(ans.equalsIgnoreCase("Yes"))
@@ -329,7 +341,7 @@ public class Visiting implements Runnable,Appliance
 	{
 		try
 		{
-			System.out.println(needs+"welcome to Sharptronics which size you want\n 32\n 43\n 55");
+			System.out.println(needs+" "+"welcome to Sharptronics which size you want\n 32\n 43\n 55");
 			if(needs.equalsIgnoreCase("LG"))
 			{
 				int size=scan.nextInt();
@@ -407,7 +419,7 @@ public class Visiting implements Runnable,Appliance
 		}
 		catch(SharptronicsException exe)
 		{
-			System.out.println(exe+"Oops sorry this model no Stock");
+			System.out.println(exe+" "+"Oops sorry this model no Stock");
 			System.out.println("Are Intrest to Buy 32inch 43ich 55inch say yes or No");
 			String ans=scan.next();
 			if(ans.equalsIgnoreCase("Yes"))
@@ -565,7 +577,7 @@ public class Visiting implements Runnable,Appliance
 			{
 				try
 				{
-					System.out.println(name+"which Field you want to Update");
+					System.out.println(name+" "+"which Field you want to Update");
 					String field=scan.next();
 					switch(field)
 					{
@@ -607,15 +619,15 @@ public class Visiting implements Runnable,Appliance
 						default:
 							throw new SharptronicsException();
 					}
-					System.out.println(field+"has been Updated");
+					System.out.println(field+" "+"has been Updated");
 					Billwrite();
 					return;
 				}
 				catch(SharptronicsException | InputMismatchException exe)
 				{
 					Scanner scan=new Scanner(System.in);
-					System.out.println(name+"your Field is wrong Enter Correct value\n CustomerName\n MobileNumber\n CustomerAdvisor\n Brand\n Model\n Quantity\n Price");
-					System.out.println(name+"which Field you want to update");
+					System.out.println(name+" "+"your Field is wrong Enter Correct value\n CustomerName\n MobileNumber\n CustomerAdvisor\n Brand\n Model\n Quantity\n Price");
+					System.out.println(name+" "+"which Field you want to update");
 					String field=scan.next();
 					switch(field)
 					{
@@ -657,7 +669,7 @@ public class Visiting implements Runnable,Appliance
 						default:
 							System.out.println("Maximum choice is over");
 					}
-					System.out.println(field+"has been Updated");
+					System.out.println(field+" "+"has been Updated");
 					Billwrite();
 					return;
 				}
@@ -693,7 +705,7 @@ public class Visiting implements Runnable,Appliance
 			}
 			catch(SharptronicsException exe)
 			{
-				System.out.println(exe+"Enter correct Datas");
+				System.out.println(exe+" "+"Enter correct Datas");
 				buy();
 			}
 
@@ -702,14 +714,135 @@ public class Visiting implements Runnable,Appliance
 			e.printStackTrace();
 		}
 	}
-
+	@Override
+	public void Sorting() 
+	{
+		System.out.println("whitch Data you want to sort\n CustomerDetails\n SystemBilling");
+		String sort=scan.next();
+		switch(sort)
+		{
+		case"CustomerDetails":
+			try {
+				Entryread();
+				Collections.sort(details);
+				Entrywrite();
+				break;
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		case"SystemBilling":
+			try {
+				Billread();
+				Collections.sort(billing);
+				Billwrite();
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+	@Override
+	public void Searching(String name) 
+	{	
+		System.out.println("which Field you want Search\n EntryCustomer\n BillingCustomer");
+		String Search=scan.next();
+		if(Search.equalsIgnoreCase("EntryCustomer"))
+		{
+			try {
+				Entryread();
+				List<CustomerDetails>data=new ArrayList<CustomerDetails>();
+				data.addAll(details);
+				try
+				{
+					System.out.println("i am trying to search EntryCustomername"+" "+name);
+					for(int index=0;index<data.size();index++)
+					{
+						if(data.get(index).getCustomerName().equalsIgnoreCase(name))
+						{
+							System.out.println(data.get(index));
+							return;
+						}
+					}
+					throw new SharptronicsException();
+				}
+				catch (SharptronicsException exe) 
+				{
+					System.out.println(exe+" "+"Place Enter Register Name Only");
+					for(CustomerDetails cus:details)
+					{
+						System.out.println(cus.getCustomerName());
+					}
+					System.out.println("which name you want to serach");
+					String name2=scan.next();
+					for(int index=0;index<data.size();index++)
+					{
+						if(data.get(index).getCustomerName().equalsIgnoreCase(name2))
+						{
+							System.out.println(data.get(index));
+							return ;
+						}
+					}
+				}
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		else if(Search.equalsIgnoreCase("BillingCustomer"))
+		{
+			try {
+				Billread();
+				List<SystemBilling>data=new ArrayList<SystemBilling>();
+				data.addAll(billing);
+				try
+				{
+					System.out.println("i am trying to search BillingCustomername"+" "+name);
+					for(int index=0;index<data.size();index++)
+					{
+						if(data.get(index).getCustomerName().equalsIgnoreCase(name))
+						{
+							System.out.println(data.get(index));
+							return;
+						}
+					}
+					throw new SharptronicsException();
+				}
+				catch (SharptronicsException exe) 
+				{
+					System.out.println(exe+" "+"Place Enter Register Name Only");
+					for(SystemBilling bill:billing)
+					{
+						System.out.println(bill.getCustomerName());
+					}
+					System.out.println("which name you want search");
+					String name2=scan.next();
+					for(int index=0;index<data.size();index++)
+					{
+						if(data.get(index).getCustomerName().equalsIgnoreCase(name2))
+						{
+							System.out.println(data.get(index));
+							return ;
+						}
+					}
+				}
+			} catch (ClassNotFoundException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	@Override
 	synchronized public void run() 
 	{
-		System.out.println("Welcome to Sharpronics"+" "+Thread.currentThread().getName());
+		System.out.print("<<<<<<<<<<Welcome to Sharpronics>>>>>>>>>>\n"+Thread.currentThread().getName()+" ");
 		do
 		{
-			System.out.println("which process you want\n 1.CustmoerEntry\n 2.Fridge\n 3.WashingMachine\n 4.Television\n 5.EntryCustomerList\n 6.Billing\n 7.BillingCustomerList\n 8.DeleteCustomer\n 9.UpdateBillingDetails\n 10.Sorting\n 11.Exit");
+			System.out.println("which process you want\n<------------------------------>\n ^1.CustmoerEntry\n ^2.Fridge\n ^3.WashingMachine\n ^4.Television\n ^5.EntryCustomerList\n ^6.Billing\n ^7.BillingCustomerList\n ^8.DeleteCustomer\n ^9.UpdateBillingDetails\n ^10.Sorting\n ^11.Searcging\n ^12.Exit");
+			System.out.println("<------------------------------>");
 			int menu=scan.nextInt();
 			switch(menu)
 			{
@@ -761,7 +894,12 @@ public class Visiting implements Runnable,Appliance
 				Sorting();
 				break;
 			case 11:
-				if(menu==10)
+				System.out.println("Enter register Name number");
+				String name1=scan.next();
+				Searching(name1);
+				break;
+			case 12:
+				if(menu==12)
 				{
 					System.out.println("Thank you");
 					return;
@@ -770,37 +908,5 @@ public class Visiting implements Runnable,Appliance
 			
 		}
 		while(true);	
-	}
-
-	@Override
-	public void Sorting() 
-	{
-		System.out.println("whitch Data you want to sort\n CustomerDetails\n SystemBilling");
-		String sort=scan.next();
-		switch(sort)
-		{
-		case"CustomerDetails":
-			try {
-				Entryread();
-				Collections.sort(details);
-				Entrywrite();
-				break;
-			} catch (ClassNotFoundException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		case"SystemBilling":
-			try {
-				Billread();
-				Collections.sort(billing);
-				Billwrite();
-			} catch (ClassNotFoundException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		
 	}
 }
